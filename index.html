@@ -1,0 +1,164 @@
+<!DCOTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/apis.css" />
+    <link rel="stylesheet" href="./awesome/css/font-awesome.min.css" />
+    <script src="../samples/html5.js"></script>
+    <!--[if IE 7]>
+        <link rel="stylesheet" href="awesome/css/font-awesome-ie7.min.css">
+    <![endif]-->
+</head>
+
+<body>
+    <nav id="navigation">
+        <div class="wrapper">
+            <a href="javascrpt:void(0)" class="brand">BaseJS</a>
+            <a href="###" data-option="文档">
+                文档
+            </a>
+            <a href="###" data-option="案例">
+                案例
+            </a>
+        </div>
+    </nav>
+    <section class="page-intro hero-unit">
+        <div class="wrapper">
+            <h1>起步</h1>
+            <p>使用basejs文档查询和使用basejs</p>
+        </div>
+
+    </section>
+    <section id="content">
+        <div class="c-nav">
+            <h1 class="title">BaseJsPro API</h1>
+
+            <ul class="api-nav">
+            </ul>
+        </div>
+        <div class="c-content">
+
+            <h2 class="deep">案例:</h2>
+            <pre class="javascript"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"path/to/sea.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"path/to/seajs-css.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+
+<span class="c1">// seajs can load css file after loading css plugin.</span>
+<span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">"path/to/some.css"</span><span class="p">)</span>
+
+<span class="nt">&lt;/script&gt;</span>
+</pre>
+
+        </div>
+        <div class="c-links"></div>
+
+    </section>
+    <footer class="page-footer">
+        <div class="wrapper">
+            <p>Api Doc By <a href="###">BaseJS</a>
+            </p>
+        </div>
+
+    </footer>
+</body>
+
+<script id="api-nav-template" type="text/html">
+    <li class="api-top">
+        <a href="javascript:void(0)" class="api-top-a">{{module}}({{description}})</a>
+        <ul class="api-nav-inner">
+            {{each methods as value i}}
+            <li><a href="###" data-module={{index}} data-index="{{i}}">{{value.description}}</a>
+            </li>
+            {{/each}}
+        </ul>
+    </li>
+</script>
+<script id="api-content-content" type="text/html">
+    <h2 class="code-sep">方法名:{{method}}</h2>
+    <h2 class="deep">方法说明:</h2>
+    <p>{{description}}</p>
+    <h2 class="deep">方法申明:</h2>
+    <p>
+        <code>{{example}}</code>
+    </p>
+
+    <h2 class="deep">相关参数:</h2>
+    <div>
+        {{each params as value i}}
+        <blockquote>
+            Module : {{value.$type}}
+            <em>{{value.$description}}</em>
+        </blockquote>
+        {{/each}}
+    </div>
+    <h2 class="deep">相关返回值:</h2>
+    <div>
+        {{each returns as value i}}
+        <blockquote>
+            Module : {{value.$type}}
+            <em>{{value.$description}}</em>
+        </blockquote>
+        {{/each}}
+    </div>
+    <h2 class="deep">案例:</h2>
+    <pre class="javascript"></pre>
+
+</script>
+<script src="./js/template.js"></script>
+<script src="../dist/basejs.debug.js"></script>
+<script src="../dist/basejs.seed.js"></script>
+
+<script>
+var x = {'modules'};
+basejs.config({
+    modules: ["core", "io", "anim"],
+    callback: function($, io, anim) {
+
+
+        for (var i = 0; i < x["modules"].length; i++) {
+            x["modules"][i]["index"] = i;
+            var html = template('api-nav-template', x["modules"][i]);
+            $(".api-nav").append(html);
+        }
+
+        $(window).bind("message", function(e) {
+            var data = e.data;
+            var origin = e.origin;
+        });
+        $(".api-top").click(function(e) {
+            if ($(e.target).hasClass("api-top-a")) {
+                var ulSibling = e.target.nextSibling;
+                while (ulSibling.nodeType == 3)
+                    ulSibling = ulSibling.nextSibling;
+
+                if(ulSibling.getAttribute("bjsup")){
+                    anim.slideDown(ulSibling,{time:100,callback:function(){
+                        ulSibling.removeAttribute("bjsup");
+                    }});
+                }else{
+                    anim.slideUp(ulSibling,{time:100});
+                    
+                }
+            }
+            var module = $(e.target).attr("data-module");
+
+            var index = $(e.target).attr("data-index");
+
+            $(".active").removeClass("active");
+            $(e.target).addClass("active");
+            if (module && index) {
+                var content = template('api-content-content', x["modules"][module]["methods"][index]);
+                $('.c-content').html(content);
+            }
+        });
+
+
+    }
+});
+</script>
+
+
+</html>

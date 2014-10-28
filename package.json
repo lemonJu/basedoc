@@ -1,0 +1,17 @@
+{
+  "name": "basedoc",
+  "version": "0.1.0",
+  "description": "a program to generate doc",
+  "main": "filter.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "no"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "lemonJu"
+}

@@ -1,0 +1,19 @@
+{
+	"brand" : "BaseJs",
+	"nav" : [
+		{
+			"innerHTML" : "文档",
+			"href" : "###"
+		},
+		{
+			"innerHTML" : "案例",
+			"href" : "###"
+		}
+	],
+	"title" : "起步",
+	"detail" : "使用basejs文档查询和使用basejs",
+	"copyright" : "<p>Api Doc By BaseJS</p>",
+	"docLocation" : "D:\\wamp2\\www\\clsBase\\base\\pages",
+	"scanLocation" : "C:\\node\\annotation",
+	"deep" : false
+}
